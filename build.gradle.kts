@@ -28,13 +28,13 @@ application {
     mainClass.set("MainKt")
 }
 
-val test1 = tasks.register("uptodateTest1", DefaultTask::class.java) {
+val test1 = tasks.register("test1", DefaultTask::class.java) {
     description = "Output file only specified, not created."
     val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
     configureUptodateTestDefaults(outputFileProvider)
 }
 
-val test2 = tasks.register("uptodateTest2", DefaultTask::class.java) {
+val test2 = tasks.register("test2", DefaultTask::class.java) {
     description = "Output file specified and all the folders to it created, but the file itself is not."
     val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
     configureUptodateTestDefaults(outputFileProvider)
@@ -43,7 +43,7 @@ val test2 = tasks.register("uptodateTest2", DefaultTask::class.java) {
     }
 }
 
-val test3 = tasks.register("uptodateTest3", DefaultTask::class.java) {
+val test3 = tasks.register("test3", DefaultTask::class.java) {
     description = "Output file specified, created and written to."
     val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
     configureUptodateTestDefaults(outputFileProvider)
@@ -55,7 +55,7 @@ val test3 = tasks.register("uptodateTest3", DefaultTask::class.java) {
     }
 }
 
-val test4 = tasks.register("uptodateTest4", DefaultTask::class.java) {
+val test4 = tasks.register("test4", DefaultTask::class.java) {
     description = "Output file specified, created and written to, but there is an ever chaning input property."
     val time = System.currentTimeMillis()
     inputs.properties("prop-time" to "$time")
