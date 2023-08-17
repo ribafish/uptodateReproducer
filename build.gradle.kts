@@ -68,8 +68,13 @@ val test4 = tasks.register("uptodateTest4", DefaultTask::class.java) {
     }
 }
 
+tasks.run.configure {
+    val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
+    configureUptodateTestDefaults(outputFileProvider)
+}
+
 tasks.register("uptodate") {
-    dependsOn(test1, test2, test3, test4)
+    dependsOn(test1, test2, test3, test4, tasks.run)
 }
 
 tasks.register("purgeCache", Delete::class.java) {
