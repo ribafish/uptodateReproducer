@@ -68,13 +68,27 @@ val test4 = tasks.register("test4", DefaultTask::class.java) {
     }
 }
 
+val test5 = tasks.register("test5", DefaultTask::class.java) {
+    description = "Output file only specified, not created. This has an action, so it shouldn't be a lifecycle task."
+    val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
+    configureUptodateTestDefaults(outputFileProvider)
+    doFirst {
+        // nothing
+    }
+}
+
 tasks.run.configure {
     val outputFileProvider = project.layout.buildDirectory.file("$name/test-output.txt")
     configureUptodateTestDefaults(outputFileProvider)
+//    doLast {
+//        val outputFile = outputFileProvider.get().asFile
+//        outputFile.parentFile.mkdirs()
+//        outputFile.writeText("thing")
+//    }
 }
 
 tasks.register("uptodate") {
-    dependsOn(test1, test2, test3, test4, tasks.run)
+    dependsOn(test1, test2, test3, test4, tasks.run, test5)
 }
 
 tasks.register("purgeCache", Delete::class.java) {
